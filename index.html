@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>📊 Stock Span Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body {
+      background-image: url('bg1.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    .glass {
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(2px);
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeInUp 0.5s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 p-6 font-sans text-gray-800">
+
+  <div class="max-w-7xl mx-auto space-y-6">
+    <!-- Header -->
+    <h1 class="text-5xl font-bold text-center mb-10 fade-in">
+      <span class="inline-block">📈</span>
+      <span class="bg-gradient-to-b from-red-200 to-red-900 bg-clip-text text-transparent">
+        Stock Span Analyzer
+      </span>
+    </h1>
+
+    <!-- Control Panel -->
+    <div class="glass p-6 rounded shadow-md fade-in">
+      <label class="block mb-2 font-semibold">Enter Price:</label>
+      <input id="priceInput" type="number" placeholder="e.g. 75" class="border p-2 w-full rounded mb-4" />
+      <div class="flex flex-wrap gap-3 mb-4">
+        <button id="addBtn" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">➕ Add</button>
+        <button id="calcBtn" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">⚙️ Analyze</button>
+        <button id="resetBtn" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">🔄 Reset</button>
+        <button onclick="downloadCSV()" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">📥 Download CSV</button>
+      </div>
+      <div class="text-gray-800">
+        <strong>Prices:</strong> <span id="priceList">100, 80, 60, 70, 60, 75, 85</span>
+      </div>
+    </div>
+
+    <!-- Visualizations -->
+    <div class="grid md:grid-cols-2 gap-6 fade-in">
+      <!-- Chart -->
+      <div class="glass p-6 rounded shadow-md">
+        <h2 class="text-lg font-bold mb-2 text-black">📊 Price vs Span Chart</h2>
+        <canvas id="chart" height="200"></canvas>
+      </div>
+
+      <!-- Stack Visualization -->
+      <div class="glass p-6 rounded shadow-md">
+        <h2 class="text-lg font-bold mb-2 text-black">📦 Stack Span View</h2>
+        <div id="stackView" class="flex flex-col items-start gap-2 text-center text-white"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-5 right-5 bg-red-600 text-white px-4 py-2 rounded shadow hidden z-50"></div>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
